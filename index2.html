@@ -5,7 +5,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Корзина</title>
     <style>
-        /* Ваші стилі тут */
+         body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .cart {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #E5E5E5; /* Light grey background */
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-item h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .cart-item button {
+            padding: 5px 10px;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #dc3545;
+            color: #fff;
+            transition: background-color 0.3s;
+        }
+
+        .cart-item button:hover {
+            background-color: #c82333;
+        }
+
+        .checkout-btn, .return-home-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .checkout-btn {
+            background-color: #28a745;
+        }
+
+        .checkout-btn:hover {
+            background-color: #218838;
+        }
+
+        .return-home-btn {
+            background-color: #007bff;
+        }
+
+        .return-home-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .checkout-form {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .thank-you-message {
+            display: none;
+            text-align: center;
+            font-size: 24px;
+            color: #28a745;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
