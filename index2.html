@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css"/>
 
     <style>
-         body {
+        body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
@@ -94,6 +94,30 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
+        .checkout-form input, .checkout-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .checkout-form button {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .checkout-form button:hover {
+            background-color: #218838;
+        }
+
         .thank-you-message {
             display: none;
             text-align: center;
@@ -110,15 +134,28 @@
 
         <button class="checkout-btn">Оформити замовлення</button>
         <button class="return-home-btn" onclick="window.location.href='index.html'">Повернутись на головну</button>
+
+        <!-- Форма оформлення замовлення -->
+        <div class="checkout-form">
+            <h3>Форма замовлення</h3>
+            <input type="text" id="name" placeholder="Ваше ім'я" required />
+            <input type="email" id="email" placeholder="Ваш email" required />
+            <textarea id="address" placeholder="Адреса доставки" required></textarea>
+            <button type="submit" onclick="submitOrder()">Підтвердити замовлення</button>
+        </div>
+
+        <div class="thank-you-message">
+            <p>Дякуємо за ваше замовлення! Ми зв'яжемось з вами найближчим часом.</p>
+        </div>
     </div>
 
     <script>
+        // Завантаження товарів з кошика
         function loadCart() {
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
             const cartContainer = document.querySelector('.cart-items');
 
-            // Очищуємо попередній вміст
-            cartContainer.innerHTML = '';
+            cartContainer.innerHTML = ''; // Очищення попереднього вмісту
 
             if (cart.length === 0) {
                 cartContainer.innerHTML = '<p>Кошик порожній</p>';
@@ -136,11 +173,38 @@
             }
         }
 
+        // Видалення товару з кошика
         function removeFromCart(productName) {
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
             cart = cart.filter(item => item.name !== productName);
             localStorage.setItem('cart', JSON.stringify(cart));
-            loadCart(); // Оновити кошик після видалення
+            loadCart(); // Оновлення кошика після видалення
+        }
+
+        // Показати/сховати форму замовлення
+        document.querySelector('.checkout-btn').addEventListener('click', function() {
+            document.querySelector('.checkout-form').style.display = 'block';
+        });
+
+        // Оформлення замовлення
+        function submitOrder() {
+            // Отримуємо дані з форми
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const address = document.getElementById('address').value;
+
+            if (name && email && address) {
+                // Відображення повідомлення про успішне замовлення
+                document.querySelector('.thank-you-message').style.display = 'block';
+                // Сховати форму
+                document.querySelector('.checkout-form').style.display = 'none';
+
+                // Очищення кошика після замовлення
+                localStorage.removeItem('cart');
+                loadCart();
+            } else {
+                alert('Будь ласка, заповніть всі поля форми.');
+            }
         }
 
         document.addEventListener('DOMContentLoaded', loadCart);
